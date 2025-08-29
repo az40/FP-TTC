@@ -40,7 +40,7 @@ def main(args, inference_dir, out_dir):
     time_stamp = datetime.datetime.now().strftime("%y_%m_%d-%H_%M_%S")
 
     model_loaded.eval()
-    out_dir = out_dir + "_2_frame_diff"
+    out_dir = out_dir + f"_{args.frame_diff}_frame_diff"
     if not os.path.isdir(out_dir):
         os.makedirs(out_dir, exist_ok=False)
 
@@ -51,13 +51,10 @@ def main(args, inference_dir, out_dir):
     w, h = args.image_size[0], args.image_size[1]
     total = 0
     with torch.no_grad():
-        for test_id in tqdm(range(0, len(filenames))):
+        for test_id in tqdm(range(0, len(filenames) - args.frame_diff)):
             
             file_1 = filenames[test_id]
-            try:
-                file_2 = filenames[test_id + args.frame_diff]
-            except IndexError:
-                print("Out of files")
+            file_2 = filenames[test_id + args.frame_diff]
             # file_1 = inference_dir + 'image_' + str(test_id).zfill(4) + '.png'
             # file_2 = inference_dir + 'image_' + str(test_id + 15).zfill(4) + '.png'
 

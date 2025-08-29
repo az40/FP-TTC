@@ -28,7 +28,7 @@ conda activate fpttc
 2. install dependencies:
 
 ```shell
-pip install 
+pip install torch torchvision
 pip install -r requirements.txt 
 ```
 
@@ -40,7 +40,7 @@ git clone https://github.com/LChanglin/FP-TTC.git
 
 4. download our pretrained weights from [link](https://drive.google.com/drive/folders/1WL2cuKDt2YPERB8WaAScX9qbO4x4p4hI?usp=sharing).
 
-5. Download the model finetuned on a subset of TartanAir from [link]().
+5. Download the model finetuned on a subset of TartanAir from [link](). There are thirty files - one for each epoch, as well as the training log and test inference videos.
 
 
 ### Datasets
@@ -67,7 +67,19 @@ Datasets
     `--training
 ```
 
+Download the TartanAir dataset for training/testing. You can do that by running:
+```bash
+git clone https://github.com/castacks/tartanair_tools.git
+pip install boto3 colorama minio
+cd tartanair_tools
 
+# The command that I used for downloading part of the dataset is:
+python download_training.py --output-dir OUTPUTDIR --rgb --depth --seg --flow --only-easy --only-left --unzip
+```
+
+If you run the above download command, the resulting dataset folders will probably take up roughly 1 TB of storage.
+
+I also suggest downloading the [monocular track URL](https://drive.google.com/file/d/1N9BkpQuibIyIBkLxVPUuoB-eDOMFqY8D/view) from the README of the tartanair_tools repo as test data.
 
 ## Usage
 
@@ -92,10 +104,13 @@ sh train.sh
 # test with our settings
 # --resume: load with pretrained weights (default:./pretrained/fpttc_mix.pth.tar)
 # --inference_dir: tested images
-sh train.sh
+# --
+sh test.sh
 ```
 
+You may want to modify the `test.py` file depending on your data (e.g. changing image width and height). There is also a `batch_infer.sh` you can use to run batch inference on a folder of subfolders containing images. Again, you may want to modify `batch_infer.py` according to your needs.
 
+Once you have a folder of subfolders containing inferences, you can create a video from each subfolder using `batch_create_video.py`.
 
 ### evaluation
 

@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=0 python test.py \
+CUDA_VISIBLE_DEVICES=0 python infer.py \
 --resume ./pretrained/fpttc_mix.pth.tar \
 --padding_factor 32 \
 --upsample_factor 4 \
@@ -7,4 +7,6 @@ CUDA_VISIBLE_DEVICES=0 python test.py \
 --attn_splits_list 2 8 \
 --corr_radius_list -1 4 \
 --prop_radius_list -1 1 \
---inference_dir Datasets/kitti/data_scene_flow/testing/image_2/
+--inference_dir Datasets/kitti/data_scene_flow/testing/image_2/ \
+--out_dir output_directory/ \
+--image_size 640 480

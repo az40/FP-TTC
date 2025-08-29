@@ -197,9 +197,9 @@ class TTCTrainer(object):
 
             # if torch.isnan(loss):
             #     continue
-            #print(scale_gt_selfsup.shape, gt_scale.shape)
-            loss_last.backward()
-            # loss.backward()
+            # print(scale_gt_selfsup.shape, gt_scale.shape)
+            # loss_last.backward()
+            loss.backward()
             #self.average_gradients()
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
             

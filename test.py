@@ -174,11 +174,7 @@ def main():
     w, h = 1242, 375
     total = 0
     with torch.no_grad():
-        for test_id in range(0, 200):
-            
-            if test_id%5!=0:
-                continue
-            
+        for test_id in range(0, 200, 5):
             file_1 = inference_dir+str(test_id).zfill(6)+'_10.png'
             file_2 = inference_dir+str(test_id).zfill(6)+'_11.png'
 
