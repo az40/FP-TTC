@@ -7,8 +7,8 @@ OMP_NUM_THREADS=8 torchrun --standalone --nnodes=1 --nproc_per_node=1 train.py \
 --corr_radius_list -1 4 \
 --prop_radius_list -1 1 \
 --epoch 1 \
---lr 4e-5 \
+--lr 1e-4 \
 --batch_size 4 \
 --stage 'tartanair' \
---image_size 480 640 \
+--image_size 320 320 \
 --parallel

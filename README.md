@@ -16,7 +16,7 @@ Official implementation of "FP-TTC: Fast Prediction of Time-to-Collision using M
 
 Our experiments are conducted in Ubuntu 20.04 with Anaconda3, Pytorch 1.12.0, CUDA 11.3, 3090 GPU (this is from the original authors).
 
-I personally used Ubuntu 24.04 with Miniconda3, CUDA 12.8, RTX 5080 GPU, PyTorch 2.8.0, so multiple different set ups will work.
+I personally used Ubuntu 24.04 with Miniconda3, CUDA 12.8, RTX 5080 GPU, PyTorch 2.7.1, so multiple different set ups will work.
 
 1. create conda environment:
 
@@ -28,7 +28,8 @@ conda activate fpttc
 2. install dependencies:
 
 ```shell
-pip install torch torchvision
+pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
+
 pip install -r requirements.txt 
 ```
 
@@ -40,7 +41,7 @@ git clone https://github.com/LChanglin/FP-TTC.git
 
 4. download our pretrained weights from [link](https://drive.google.com/drive/folders/1WL2cuKDt2YPERB8WaAScX9qbO4x4p4hI?usp=sharing).
 
-5. Download the model finetuned on a subset of TartanAir from [link](). There are thirty files - one for each epoch, as well as the training log and test inference videos.
+5. Download the model finetuned on a subset of TartanAir from [link](https://drive.google.com/drive/folders/10V24WEx0MkSLGw_ntZkbZNiKUCzpX5KS?usp=sharing). There are thirty model files - one for each epoch, as well as the training log and test inference videos (videos use the last epoch checkpoint). The model was trained using the same parameters currently in `train.sh`.
 
 
 ### Datasets
@@ -96,6 +97,7 @@ We use 3090 GPUs for training and testing.
 sh train.sh
 ```
 
+Note that in `dataloader/dataset.py` and `utils/trainer.py` you will have to update the dataset folder paths to your TartanAir folder.
 
 
 ### inference with your own data
@@ -108,7 +110,7 @@ sh train.sh
 sh test.sh
 ```
 
-You may want to modify the `test.py` file depending on your data (e.g. changing image width and height). There is also a `batch_infer.sh` you can use to run batch inference on a folder of subfolders containing images. Again, you may want to modify `batch_infer.py` according to your needs.
+You may want to modify the `infer.py` file depending on your needs. There is also a `batch_infer.sh` you can use to run batch inference on a folder of subfolders containing images. Again, you may want to modify `batch_infer.py` according to your needs.
 
 Once you have a folder of subfolders containing inferences, you can create a video from each subfolder using `batch_create_video.py`.
 
