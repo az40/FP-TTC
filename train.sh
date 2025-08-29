@@ -1,0 +1,14 @@
+OMP_NUM_THREADS=8 torchrun --standalone --nnodes=1 --nproc_per_node=1 train.py \
+--resume ./pretrained/fpttc_kitti.pth.tar \
+--padding_factor 32 \
+--upsample_factor 4 \
+--num_scales 2 \
+--attn_splits_list 2 8 \
+--corr_radius_list -1 4 \
+--prop_radius_list -1 1 \
+--epoch 1 \
+--lr 4e-5 \
+--batch_size 4 \
+--stage 'tartanair' \
+--image_size 480 640 \
+--parallel
